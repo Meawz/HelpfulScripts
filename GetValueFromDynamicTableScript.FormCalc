@@ -1,0 +1,16 @@
+// Initialize a variable for total sum
+var totalSum = 0
+
+// Loop through all instances (rows) of the dynamic table
+for i = 0 upto Page9.Tabel19subform.Table19.instanceManager.count - 1 do
+    // Access the value of the field in each row (e.g., AmountField)
+    var rowValue = Page9.Tabel19subform.Table19[i].Row1.Table27.Row6[2].Table28.Row1.Table29.Row2.InitialD.rawValue
+
+    // Ensure that the value is not null or empty and then add it to the total sum
+    if (HasValue(rowValue)) then
+        totalSum = totalSum + rowValue
+    endif
+endfor
+
+// Set the result (totalSum) to the target field (e.g., TotalField)
+$.rawValue = totalSum
