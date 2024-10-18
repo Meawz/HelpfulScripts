@@ -5,6 +5,8 @@ var townList = {"Bucuresti Ilfov":["Bucuresti - Sector 1","Bucuresti - Sector 2"
 //var LocalitateR = xfa.resolveNode("form1.#subform[0].subDropdown");
 JudetUnic.clearItems();
 
+JudetUnic.addItem("Selectati un judet");
+
 // Populate subDropdown with new options based on the selected category
 if (selectedCategory && townList[selectedCategory]) {
     var items = townList[selectedCategory];
@@ -15,3 +17,6 @@ if (selectedCategory && townList[selectedCategory]) {
     // Optionally, handle the case where no matching category is found
     JudetUnic.addItem("Please select a valid category");
 }
+
+JudetUnic.setItemState(0, true);
+LocalitateUnic.setItemState(0, true);
