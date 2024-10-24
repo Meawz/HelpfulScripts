@@ -59,4 +59,5 @@ if (parseInt(cnp.charAt(12)) !== controlDigit) {
 // Display all error messages in a single message box
 if (errorMessages !== "") {
     xfa.host.messageBox(errorMessages, "Erori CNP", 3);
+    this.rawValue = "";
 }
