@@ -1,4 +1,4 @@
-// Initialize event
+// Initialize event 
 this.execEvent("exit"); 
 this.format.picture.value = "null{'" + this.assist.toolTip.value + "'}";
 this.font.size = "4pt";
@@ -17,3 +17,5 @@ if (this.isNull){
 	this.caption.font.posture = "normal";
 } else {
 }
+
+// Text: Daca nu este cazul introduceti: "NU SE APLICA"
