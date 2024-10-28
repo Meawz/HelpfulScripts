@@ -11,7 +11,7 @@ this.font.size = "9pt";
 //Exit event
 if (this.isNull){
 	this.font.size = "4pt";
-	this.fontColor = "153,153,153"; 
+	this.fontColor = "102,102,102"; 
 	this.font.posture = "italic"; 
 	this.caption.font.fill.color.value = "0,0,0"; 
 	this.caption.font.posture = "normal";
