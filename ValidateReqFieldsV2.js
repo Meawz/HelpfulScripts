@@ -86,7 +86,7 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
             // Extract the page number from the field path
             var pageMatch = fieldPath.match(/Page(\d+)/);
             var pageNumber = pageMatch ? pageMatch[1] : "unknown";
-            incompleteFields += field.name + " on Page " + pageNumber + " is required.\n";
+            incompleteFields += field.name + " pe Pagina " + pageNumber + " este obligatoriu.\n";
         }
     } else {
         incompleteFields += "Field at path " + fieldPath + " does not exist.\n";
@@ -95,7 +95,7 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
 
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
-    xfa.host.messageBox("The following mandatory fields are incomplete:\n" + incompleteFields, "Incomplete Fields", 3);
+    xfa.host.messageBox("Urmatoarele campuri sunt necompletate:\n" + incompleteFields, "Campuri Incomplete", 3);
 } else {
-    xfa.host.messageBox("All mandatory fields are complete.", "Validation Successful", 3);
+    xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
 }
