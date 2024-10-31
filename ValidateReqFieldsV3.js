@@ -176,3 +176,4 @@ if (incompleteFields !== "") {
     xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
 }
 
+
