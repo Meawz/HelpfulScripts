@@ -1,5 +1,79 @@
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 
+// Mapping of internal field names to user-friendly names
+var friendlyNames = {
+    "DenumireUnic": "Denumire Unică",
+    "CUIUnic": "Cod Unic de Înregistrare",
+    "ProfitB2": "Profit Net",
+    "CifraB2": "Cifra de Afaceri",
+    "RegiuneListB2": "Regiune",
+    "JudetListB2": "Județ",
+    "LocalitateListB2": "Localitate",
+    "CodPostalB2": "Cod Poștal",
+    "StradaB2": "Strada",
+    "NrB2": "Număr",
+    "TelefonB2": "Telefon",
+    "EmailB2": "E-mail",
+    "NumeB2": "Nume",
+    "PrenumeB2": "Prenume",
+    "FunctieB2": "Funcție",
+    "DataNasteriiB2": "Data Nașterii",
+    "CNPB2": "CNP",
+    "BIB2": "Buletin de Identitate",
+    "CIB2": "Carte de Identitate",
+    "PasaportB2": "Pașaport",
+    "SeriaB2": "Seria",
+    "NumarB2": "Număr",
+    "EliberatB2": "Eliberat",
+    "DeCatreB2": "Eliberat de Către",
+    "ValabilB2": "Valabil Până La",
+    "DenumireBancaB3": "Denumire Bancă",
+    "DenumireSucursalaB3": "Denumire Sucursală",
+    "AdresaB3": "Adresă",
+    "IBANB3": "IBAN",
+    "TItularB3": "Titular",
+    "TitluProiectC1": "Titlu Proiect",
+    "DaC3": "Da (Întrebare C3)",
+    "NuC3": "Nu (Întrebare C3)",
+    "NationalC3": "Proiect Național",
+    "EuropeanC3": "Proiect European",
+    "InternationalC3": "Proiect Internațional",
+    "DenumireC3": "Denumire Proiect",
+    "NProiecteC3": "Număr de Proiecte",
+    "DBeneficiarC3": "Denumire Beneficiar",
+    "InDerulareC3": "Proiect În Derulare",
+    "FinalizatC3": "Proiect Finalizat",
+    "DataFInalizariiC3": "Data Finalizării",
+    "ValNerambursabilaC3": "Valoare Nerambursabilă",
+    "DescriereInvestitieC4": "Descriere Investiție",
+    "ObiectiveProiectC5": "Obiectivele Proiectului",
+    "RezultateAsteptateC6": "Rezultate Așteptate",
+    "RiscuriIdentificateC7": "Riscuri Identificate",
+    "PrincipiOrizontaleC8": "Principii Orizontale",
+    "InstalareR3C5": "Instalare Activitate R3 C5",
+    "InstalareR4C5": "Instalare Activitate R4 C5",
+    "InstalareR3C6": "Instalare Activitate R3 C6",
+    "InstalareR4C6": "Instalare Activitate R4 C6",
+    "InformareR3C6": "Informare Activitate R3 C6",
+    "CertificatR4C6": "Certificat Activitate R4 C6",
+    "CertificatR5C6": "Certificat Activitate R5 C6",
+    "CertificatR6C6": "Certificat Activitate R6 C6",
+    "ContributieC11": "Contribuție",
+    "DurataProiectuluiC12": "Durata Proiectului",
+    "NumeD": "Nume", 
+    "PrenumeD": "Prenume", 
+    "CNPD": "CNP", 
+    "RegiuneD": "Regiune", 
+    "JudetD": "Județ", 
+    "LocalitateD": "Localitate", 
+    "StradaD": "Strada", 
+    "NrD": "Număr", 
+    "CodPostalD": "Cod Poștal", 
+    "InitialD": "Inițial", 
+    "PropusD": "Propus" 
+    // Add more fields as needed
+};
+
 // Manually define the paths to all mandatory fields
 var mandatoryFieldPaths = [
     "Page1.DenumireUnic",
@@ -71,7 +145,6 @@ var mandatoryFieldPaths = [
     "Page7.Table19Subform.Table19.Row1.Table27.Row6.CodPostalD",
     "Page7.Table19Subform.Table19.Row1.Table27.Row6[2].Table28.Row2.InitialD",  
     "Page7.Table19Subform.Table19.Row1.Table27.Row6[2].Table28.Row2.PropusD", 
-    // Add more field paths as needed 
 ];
 
 // Loop through each mandatory field path
@@ -86,7 +159,10 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
             // Extract the page number from the field path
             var pageMatch = fieldPath.match(/Page(\d+)/);
             var pageNumber = pageMatch ? pageMatch[1] : "unknown";
-            incompleteFields += "Campul \"" + field.name + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";  
+            
+            // Use friendly name if available, otherwise fall back to the internal name
+            var friendlyName = friendlyNames[field.name] || field.name;
+            incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";  
         }
     } else {
         incompleteFields += "Campul la calea \"" + fieldPath + "\" nu există.\n";
@@ -99,3 +175,4 @@ if (incompleteFields !== "") {
 } else {
     xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
 }
+
