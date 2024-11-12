@@ -26,3 +26,11 @@ if (this.errorText) {
     // If there's any validation error, clear the field 
     this.rawValue = null; 
 } 
+
+//FOR VALIDATIONSTATE EVENT ONLY!!!
+
+if (this.errorText) {
+    // Clear the field if there's a validation error
+    this.rawValue = null;
+}
+
