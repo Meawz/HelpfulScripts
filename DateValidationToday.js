@@ -1,15 +1,19 @@
-// Get the selected date from the date field
+// Now add your custom validation logic 
 var selectedDate = new Date(this.rawValue);
 
-// Get today's date and set the time to midnight for accurate comparison
+// Get today's date
 var today = new Date();
-today.setHours(0, 0, 0, 0);
 
-// Check if the selected date is after today's date (in the future)
+// Calculate the date 18 years ago from today
+var maxDateAllowed = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+// Check if the selected date is in the future
 if (selectedDate > today) {
-    // Display a message to the user in Romanian
-    xfa.host.messageBox("Data nu poate fi în viitor. Vă rugăm să selectați o dată validă.", "Data invalidă", 0, 0);
-
-    // Clear the field or reset it
-    this.rawValue = null;
+    xfa.host.messageBox("Data nu poate fi din viitor. Vă rugăm să selectați o dată validă.", "Data Invalidă", 0, 0);
+    this.rawValue = null; // Clear the field
+}
+// Check if the selected date makes the person younger than 18
+else if (selectedDate > maxDateAllowed) {
+    xfa.host.messageBox("Vârsta minimă trebuie să fie de 18 ani.", "Date Invalidă", 0, 0);
+    this.rawValue = null; // Clear the field
 }
