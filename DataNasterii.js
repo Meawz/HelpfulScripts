@@ -1,4 +1,4 @@
-//Exit Event
+//Exit Event///////////////////////////////
 // Re-trigger validation on exit
 this.execEvent("validationState");
 
@@ -8,7 +8,7 @@ if (this.errorText) {
 }
 
 
-//Validate Event
+//Validate Event///////////////////////////////
 // Now add your custom validation logic 
 var selectedDate = new Date(this.rawValue);
 
@@ -29,7 +29,7 @@ else if (selectedDate > maxDateAllowed) {
     this.rawValue = null; // Clear the field
 }
 
-//validationState Event
+//validationState Event////////////////////////////////
 if (this.errorText) {
     // Clear the field if there's a validation error
     this.rawValue = null;
