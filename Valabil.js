@@ -1,4 +1,4 @@
-//Exit Event
+//Exit Event/////////////////////////////////////////
 // Mark the field as cleared by custom validation (reset at the beginning)
 this.isClearedByCustomValidation = false;
 
@@ -21,6 +21,7 @@ if (date1 && date2) {
     }
 }
 
+//Exit Event//////////////////////////////////////////
 // Re-trigger validation to check for other errors
 this.execEvent("validationState");
 
@@ -32,7 +33,7 @@ if (this.errorText) {
     }
 }
 
-//validationState
+//validationState/////////////////////////////////////
 if (this.errorText) {
     // Clear the field if there's a validation error
     this.rawValue = null;
