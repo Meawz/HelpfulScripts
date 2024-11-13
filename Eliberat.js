@@ -1,4 +1,4 @@
-//Exit Event
+//Exit Event////////////////////////////////////////
 // Re-trigger validation on exit
 this.execEvent("validationState");
 
@@ -7,7 +7,7 @@ if (this.errorText) {
     this.rawValue = null;
 }
 
-//Validate Event
+//Validate Event////////////////////////////////////
 // Get the selected date from the date field
 var selectedDate = new Date(this.rawValue);
 
@@ -28,7 +28,7 @@ if (selectedDate > today) {
 }
 
 
-//validationState Event
+//validationState Event/////////////////////////////
 if (this.errorText) {
     // Clear the field if there's a validation error
     this.rawValue = null;
