@@ -21,7 +21,7 @@ if (date1 && date2) {
     }
 }
 
-//Exit Event//////////////////////////////////////////
+
 // Re-trigger validation to check for other errors
 this.execEvent("validationState");
 
