@@ -250,6 +250,8 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
     xfa.host.messageBox("Urmatoarele campuri sunt necompletate:\n" + incompleteFields, "Campuri Incomplete", 3);
+    xfa.resolveNode("SemnaturaElecJ").presence = "hidden";
 } else {
     xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
+    xfa.resolve("SemnaturaElecJ").presence = "visible";
 }
