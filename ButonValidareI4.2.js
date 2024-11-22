@@ -1,4 +1,4 @@
-//mouseUp Event//
+//mouseUp Event
 
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 
@@ -66,7 +66,13 @@ var friendlyNames = {
     "LocalitateD": "Localitate", 
     "StradaD": "Strada", 
     "NrD": "Număr", 
-    "CodPostalD": "Cod Poștal", 
+    "CodPostalD": "Cod Poștal",
+    "Da1": "Da (Observatii 1)",
+    "Nu1": "Nu (Observatii 1)",
+    "Da2": "Da (Observatii 2)",
+    "Nu2": "Nu (Observatii 2)",
+    "Da3": "Da (Observatii 3)",
+    "Nu3": "Nu (Observatii 3)", 
     "Observatii1" : "Observatii Nr.1",
     "Observatii2" : "Observatii Nr.2",
     "Observatii3" : "Observatii Nr.3",
@@ -80,8 +86,7 @@ var friendlyNames = {
     "Observatii11" : "Observatii Nr.11",
     "Observatii12" : "Observatii Nr.12",
     "Observatii13" : "Observatii Nr.13" 
-    // Add more fields as needed
-};
+}; 
 
 // Manually define the paths to all mandatory fields
 var mandatoryFieldPaths = [
@@ -148,6 +153,12 @@ var mandatoryFieldPaths = [
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2.StradaD", 
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2.NrD", 
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2.CodPostalD",
+    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Da1", 
+    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Nu1",
+    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Da2",
+    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Nu2",
+    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Da3",
+    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Nu3", 
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Observatii1",
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Observatii2", 
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Observatii3", 
@@ -162,6 +173,61 @@ var mandatoryFieldPaths = [
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[2].Observatii12",
     "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[3].Observatii13"      
 ]; 
+
+var checkboxGroups = [
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Da1", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Nu1"],
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 1!" 
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Da2", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Nu2"],
+		message:  "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 2!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Da3", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Nu3"], 
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 3!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row5.Da4", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row5.Nu4"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 4!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row6.Da5", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row6.Nu5"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 5!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7.Da6", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7.Nu6"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 6!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row8.Da7", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row8.Nu7"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 7!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row9.Da8", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row9.Nu8"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 8!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row10.Da9", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row10.Nu9"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 9!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11.Da10", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11.Nu10"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 10!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[1].Da11", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[1].Nu11"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 11!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[2].Da12", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[2].Nu12"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 12!"
+	},
+	{
+		group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[3].Da13", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row11[3].Nu13"],  
+		message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 13!"
+	} 
+];
 
 // Loop through each mandatory field path
 for (var i = 0; i < mandatoryFieldPaths.length; i++) {
@@ -183,6 +249,24 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
     } else {
         incompleteFields += "Campul la calea \"" + fieldPath + "\" nu există.\n";
     }
+}
+
+for (var j = 0; j < checkboxGroups.length; j++) {
+	var group = checkboxGroups[j].group;
+	var groupChecked = false;
+	
+	for (var k = 0; k < group.length; k++) {
+		var checkbox = xfa.resolveNode(group[k]);
+		
+		if (checkbox && checkbox.rawValue === "On") {
+			groupChecked = true;
+			break;
+		}
+	}
+	
+	if (!groupChecked) {
+		incompleteFields += checkboxGroups[j].message + "\n";
+	}
 }
 
 // Display a message if there are incomplete fields
