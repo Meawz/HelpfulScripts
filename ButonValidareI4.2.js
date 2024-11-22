@@ -258,7 +258,7 @@ for (var j = 0; j < checkboxGroups.length; j++) {
 	for (var k = 0; k < group.length; k++) {
 		var checkbox = xfa.resolveNode(group[k]);
 		
-		if (checkbox && checkbox.rawValue === "On") {
+		if (checkbox && checkbox.rawValue == "On") {
 			groupChecked = true;
 			break;
 		}
