@@ -21,8 +21,10 @@ if (cnp.charAt(0) === '1' || cnp.charAt(0) === '2') {
     year += 1800; // 1800 - 1899
 } else if (cnp.charAt(0) === '5' || cnp.charAt(0) === '6') {
     year += 2000; // 2000 - 2099
+} else if (cnp.charAt(0) === '7' || cnp.charAt(0) === '8') {
+    year += 2000; // Residents are generally born after 2000
 } else {
-    errorMessages += "Codul CNP nu este valid.\n";
+    errorMessages += "Codul CNP nu este valid.\n" + cnp;
 }
 
 // Validate month and day
