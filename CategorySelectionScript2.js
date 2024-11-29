@@ -6,7 +6,7 @@ var townList = {"Alba":["Abrud","Aiud","Alba  Iulia","Albac","Almasu Mare","Arie
 //var LocalitateR = xfa.resolveNode("form1.#subform[0].subDropdown");
 LocalitateUnic.clearItems();
 
-LoclitateUnic.addItem("Selectati o localitate");
+LocalitateUnic.addItem("Selectati o localitate");
 
 // Populate subDropdown with new options based on the selected category
 if (selectedCategory && townList[selectedCategory]) {
