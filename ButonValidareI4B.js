@@ -1,3 +1,4 @@
+ form1.Page22.Button1::mouseUp - (JavaScript, client)
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 
 // Mapping of internal field names to user-friendly names
@@ -195,6 +196,10 @@ var checkboxGroups = [
 		{
 				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[4].Da10", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[4].Nu10"],  
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 10!"
+		},
+		{
+				group:["Page5.DaC3", "Page5.NuC3"],
+				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la C3. Finanțări nerambursabile obținute sau solicitate!"  
 		},
 ]
 
