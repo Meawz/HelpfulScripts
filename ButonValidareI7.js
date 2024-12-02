@@ -1,5 +1,3 @@
-//mouseUp Event//
-
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 
 // Mapping of internal field names to user-friendly names
@@ -108,7 +106,7 @@ var friendlyNames = {
     "StradaD": "Strada",
     "NrD": "Număr",
     "CodPostalD": "Cod Poștal",
-    "SuprafataD": "Suprafață",
+    "SuprafataUtilaD": "Suprafață",
     "InitialD": "Valoare Inițială",
     "PropusFinalD": "Valoare Propusă/Finală"
     // Add more fields as needed
@@ -211,19 +209,26 @@ var mandatoryFieldPaths = [
     "Page8.Table18.Row4.Cerificate6",
     "Page9.ContributiaC11",
     "Page9.DurataC12",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row2.NumeD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row2.PrenumeD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row2.CNPD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row4.RegiuneD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row4.JudetD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row4.LocalitateD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row6.StradaD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row6.NrD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row6.CodPostalD",
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row6[2].SuprafataD", 
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row6[2].Table28.Row1.Table29.Row2.InitialD",   
-    "Page9.Tabel19subform.Table19.Row1.Table27.Row6[2].Table28.Row1.Table30.Row2.PropusFinalD"   
+    "Page9.Table19subform.Table19.Row1.Table2.Row2.NumeD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row2.PrenumeD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row2.CNPD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row4.RegiuneD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row4.JudetD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row4.LocalitateD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row6.StradaD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row6.NrD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row6.CodPostalD",
+    "Page9.Table19subform.Table19.Row1.Table2.Row7.Table3.Row2.SuprafataUtilaD", 
+    "Page9.Table19subform.Table19.Row1.Table2.Row7.Table3.Row3.Table4.Row3.InitialD",   
+    "Page9.Table19subform.Table19.Row1.Table2.Row7.Table3.Row3.Table4.Row3.PropusFinalD"   
 ];
+
+var checkboxGroups = [
+		{
+			group:["Page5.DaC3", "Page5.NuC3"],
+			message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la C3. Finanțări nerambursabile obținute sau solicitate!"  
+		}
+]
 
 // Loop through each mandatory field path
 for (var i = 0; i < mandatoryFieldPaths.length; i++) {
@@ -247,11 +252,29 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
     }
 }
 
+for (var j = 0; j < checkboxGroups.length; j++) {
+		var group = checkboxGroups[j].group;
+		var groupChecked = false;
+	
+		for (var k = 0; k < group.length; k++) {
+				var checkbox = xfa.resolveNode(group[k]);
+		
+			if (checkbox && checkbox.rawValue == "On") {
+						groupChecked = true;
+						break;
+		}
+	}
+	
+	if (!groupChecked) {
+			incompleteFields += checkboxGroups[j].message + "\n";
+	}
+} 
+
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
     xfa.host.messageBox("Urmatoarele campuri sunt necompletate:\n" + incompleteFields, "Campuri Incomplete", 3);
-    xfa.resolveNode("SemnaturaElecJ").presence = "hidden";
+    xfa.resolveNode("SignatureField1").presence = "hidden";
 } else {
     xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
-    xfa.resolve("SemnaturaElecJ").presence = "visible";
+    xfa.resolveNode("SignatureField1").presence = "visible";
 }
