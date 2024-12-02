@@ -1,5 +1,4 @@
-//mouseUp Event//
-
+ form1.Page22.Button1::mouseUp - (JavaScript, client)
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 
 // Mapping of internal field names to user-friendly names
@@ -137,6 +136,12 @@ var mandatoryFieldPaths = [
     "Page7.Table19Subform.Table19.Row1.Table27.Row6.CodPostalD"  
 ];
 
+var checkboxGroups = [
+				{
+						group:["Page3.DaC3", "Page3.NuC3"],
+						message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la C3. Finanțări nerambursabile obținute sau solicitate!" 
+				}
+]
 // Loop through each mandatory field path
 for (var i = 0; i < mandatoryFieldPaths.length; i++) {
     var fieldPath = mandatoryFieldPaths[i];
@@ -158,6 +163,25 @@ for (var i = 0; i < mandatoryFieldPaths.length; i++) {
         incompleteFields += "Campul la calea \"" + fieldPath + "\" nu există.\n";
     }
 }
+
+
+for (var j = 0; j < checkboxGroups.length; j++) {
+		var group = checkboxGroups[j].group;
+		var groupChecked = false;
+	
+		for (var k = 0; k < group.length; k++) {
+				var checkbox = xfa.resolveNode(group[k]);
+		
+			if (checkbox && checkbox.rawValue == "On") {
+						groupChecked = true;
+						break;
+		}
+	}
+	
+	if (!groupChecked) {
+			incompleteFields += checkboxGroups[j].message + "\n";
+	}
+} 
 
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
