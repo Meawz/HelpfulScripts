@@ -63,3 +63,16 @@ if (errorMessages !== "") {
     xfa.host.messageBox(errorMessages, "Erori CNP", 3);
     this.rawValue = "";
 }
+
+var nodes = xfa.resolveNodes("Table19subform[*]");     
+for (var i=0;i<nodes.length;i++) 
+{
+    var node = nodes.item(i); 
+       
+    var campCNP = node.resolveNode("Table19.Row1.TabelCNP.Row2.CNPD");
+    if (this.rawValue != null && this.rawValue != "" && campCNP.rawValue == this.rawValue && this.parent.somExpression != campCNP.parent.somExpression) 
+    {
+               this.rawValue = "";
+               xfa.host.messageBox("Duplicat ", "Validation Error", 0);
+               }
+}
