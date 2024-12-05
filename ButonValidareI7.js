@@ -1,5 +1,11 @@
+form1.Page20.Button5::mouseUp - (JavaScript, client)
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 
+function checkField(field, friendlyName, pageNumber) {
+    if (!field || !field.rawValue || field.rawValue === "") {
+        incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";
+    }
+}
 // Mapping of internal field names to user-friendly names
 var friendlyNames = {
     "DenumireB2": "Denumire Solicitant Unic/Lider", 
@@ -75,26 +81,21 @@ var friendlyNames = {
     "RezultateC6": "Rezultate Așteptate",
     "RiscuriC7": "Riscuri Identificate",
     "PrincipiiC8": "Principii Orizontale",
-    "NumericField4": "Număr Vouchere Activitatea 1", 
-    "NumericField5": "Număr Vouchere Activitatea 2", 
-    "NumericField6": "Număr Vouchere Activitatea 3", 
-    "NumericField7": "Număr Vouchere Activitatea 4", 
-    "NumericField8": "Număr Vouchere Activitatea 5", 
-    "NumericField9": "Număr Vouchere Activitatea 6", 
-    "ActR1C5": "Activitatea 1 (Coloana 5)",
-    "ActR2C5": "Activitatea 2 (Coloana 5)",
-    "ActR3C5": "Activitatea 3 (Coloana 5)",
-    "ActR4C5": "Activitatea 4 (Coloana 5)",
-    "ActR5C5": "Activitatea 5 (Coloana 5)",
-    "ActR6C5": "Activitatea 6 (Coloana 5)",
-    "ActR1C6": "Activitatea 1 (Coloana 6)",
-    "ActR2C6": "Activitatea 2 (Coloana 6)",
-    "ActR3C6": "Activitatea 3 (Coloana 6)",
-    "ActR4C6": "Activitatea 4 (Coloana 6)",
-    "ActR5C6": "Activitatea 5 (Coloana 6)",
-    "ActR6C6": "Activitatea 6 (Coloana 6)",
-    "Informare6": "Informare și Publicitate (Coloana 6)",
-    "Cerificate6": "Certificate de Racordare (Coloana 6)",
+    "NumarVoucherA1C3": "Număr Vouchere Activitatea 1",   
+    "ValACT1C5": "Activitatea 1 (Coloana 5)",
+    "ValACT2C5": "Activitatea 2 (Coloana 5)",
+    "ValACT3C5": "Activitatea 3 (Coloana 5)",
+    "ValACT4C5": "Activitatea 4 (Coloana 5)",
+    "ValACT5C5": "Activitatea 5 (Coloana 5)",
+    "ValACT6C4": "Activitatea 6 (Coloana 5)",
+    "ValACT1C6": "Activitatea 1 (Coloana 6)",
+    "ValACT2C6": "Activitatea 2 (Coloana 6)",
+    "ValACT3C6": "Activitatea 3 (Coloana 6)",
+    "ValACT4C6": "Activitatea 4 (Coloana 6)",
+    "ValACT5C6": "Activitatea 5 (Coloana 6)",
+    "ValACT6C5": "Activitatea 6 (Coloana 6)",
+    "ValINFOC6": "Informare și Publicitate (Coloana 6)",
+    "ValCERC6": "Certificate de Racordare (Coloana 6)",
     "ContributiaC11": "Contribuție",
     "DurataC12": "Durata Proiectului",
     "NumeD": "Nume",
@@ -187,26 +188,21 @@ var mandatoryFieldPaths = [
     "Page6.RezultateC6",
     "Page6.RiscuriC7",
     "Page6.PrincipiiC8",
-    "Page7.Table17.Row3.NumericField4",
-    "Page7.Table17.Row4.NumericField5",
-    "Page7.Table17.Row5.NumericField6",
-    "Page7.Table17.Row6.NumericField7",
-    "Page7.Table17.Row7.NumericField8",
-    "Page7.Table17.Row8.NumericField9",
-    "Page7.Table17.Row3.ActR1C5",
-    "Page7.Table17.Row4.ActR2C5",
-    "Page7.Table17.Row5.ActR3C5",
-    "Page7.Table17.Row6.ActR4C5",
-    "Page7.Table17.Row7.ActR5C5",
-    "Page7.Table17.Row8.ActR6C5",
-    "Page7.Table17.Row3.ActR1C6",
-    "Page7.Table17.Row4.ActR2C6",
-    "Page7.Table17.Row5.ActR3C6",
-    "Page7.Table17.Row6.ActR4C6",
-    "Page7.Table17.Row7.ActR5C6",
-    "Page7.Table17.Row8.ActR6C6",
-    "Page8.Table18.Row3.Informare6",
-    "Page8.Table18.Row4.Cerificate6",
+    "Page7.Table17.Row3.NumarVoucherA1C3",
+    "Page7.Table17.Row3.ValACT1C5",
+    "Page7.Table17.Row4.ValACT2C5",
+    "Page7.Table17.Row5.ValACT3C5",
+    "Page7.Table17.Row6.ValACT4C5",
+    "Page7.Table17.Row7.ValACT5C5",
+    "Page7.Table17.Row8.ValACT6C4",
+    "Page7.Table17.Row3.ValACT1C6",
+    "Page7.Table17.Row4.ValACT2C6",
+    "Page7.Table17.Row5.ValACT3C6",
+    "Page7.Table17.Row6.ValACT4C6",
+    "Page7.Table17.Row7.ValACT5C6",
+    "Page7.Table17.Row8.ValACT6C5",
+    "Page8.Table18.Row3.ValINFOC6",
+    "Page8.Table18.Row4.ValCERC6",
     "Page9.ContributiaC11",
     "Page9.DurataC12",
     "Page9.Table19subform.Table19.Row1.TabelCNP.Row2.NumeD",
@@ -270,74 +266,54 @@ for (var j = 0; j < checkboxGroups.length; j++) {
 	}
 } 
 
-var nodes = xfa.resolveNodes("Page9.Table19subform.Table19[*]"); 
+// Validate fields in Table19 dynamically
+var nodesD = xfa.resolveNodes("Page9.Table19subform.Table19[*]");
+for (var i = 0; i < nodesD.length; i++) {
+    var node = nodesD.item(i);
 
-for (var i=0;i<nodes.length;i++) 
-{
-    var node = nodes.item(i);
-    var campCNP = node.resolveNode("Row1.TabelCNP.Row2.CNPD");
-    var campNume = node.resolveNode("Row1.TabelCNP.Row2.NumeD");
-    var campPrenume = node.resolveNode("Row1.TabelCNP.Row2.PrenumeD");
-    var campRegiune = node.resolveNode("Row1.TabelCNP.Row4.RegiuneD");
-    var campJudet = node.resolveNode("Row1.TabelCNP.Row4.JudetD");
-    var campLocalitate = node.resolveNode("Row1.TabelCNP.Row4.LocalitateD");
-    var campStrada = node.resolveNode("Row1.TabelCNP.Row6.StradaD");
-    var campNr = node.resolveNode("Row1.TabelCNP.Row6.NrD"); 
-    var campCodPostal = node.resolveNode("Row1.TabelCNP.Row6.CodPostalD");
-    var campSuprafata = node.resolveNode("Row1.TabelCNP.Row7.Table3.Row2.SuprafataUtilaD");
-    var campInitial = node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.InitialD");
-    var campPropus = node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.PropusFinalD");       
-    //xfa.host.messageBox("" + campCNP.rawValue);
-    if (campPropus.rawValue == "" || campPropus.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Propus/Final gol.");
-    }
-    if (campInitial.rawValue == "" || campInitial.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Initial gol.");
-    }
-    if (campSuprafata.rawValue == "" || campSuprafata.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Suprafata gol.");
-    }
-    if (campCodPostal.rawValue == "" || campCodPostal.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Cod Postal gol.");
-    }
-    if (campNr.rawValue == "" || campNr.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Nr gol.");
-    }
-    if (campStrada.rawValue == "" || campStrada.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Strada gol.");
-    }
-    if (campLocalitate.rawValue == "" || campLocalitate.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Localitate gol.");
-    }
-    if (campJudet.rawValue == "" || campJudet.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Judet gol.");
-    }
-    if (campRegiune.rawValue == "" || campRegiune.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Regiune gol.");
-    }
-    if (campPrenume.rawValue == "" || campPrenume.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Prenume gol.");
-    }
-    if (campNume.rawValue == "" || campNume.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp Nume gol.");
-	}    
-    if (campCNP.rawValue == "" || campCNP.rawValue == null)
-    {
-    	xfa.host.messageBox("Camp CNP gol.");
+    // Define fields to validate within each Table19 instance
+    var tableFieldsD = [
+        { field: node.resolveNode("Row1.TabelCNP.Row2.CNPD"), name: "CNP" },
+        { field: node.resolveNode("Row1.TabelCNP.Row2.NumeD"), name: "Nume" },
+        { field: node.resolveNode("Row1.TabelCNP.Row2.PrenumeD"), name: "Prenume" },
+        { field: node.resolveNode("Row1.TabelCNP.Row4.RegiuneD"), name: "Regiune" },
+        { field: node.resolveNode("Row1.TabelCNP.Row4.JudetD"), name: "Județ" },
+        { field: node.resolveNode("Row1.TabelCNP.Row4.LocalitateD"), name: "Localitate" },
+        { field: node.resolveNode("Row1.TabelCNP.Row6.StradaD"), name: "Strada" },
+        { field: node.resolveNode("Row1.TabelCNP.Row6.NrD"), name: "Număr" },
+        { field: node.resolveNode("Row1.TabelCNP.Row6.CodPostalD"), name: "Cod Poștal" },
+        { field: node.resolveNode("Row1.TabelCNP.Row7.Table3.Row2.SuprafataUtilaD"), name: "Suprafață" },
+        { field: node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.InitialD"), name: "Valoare Inițială" },
+        { field: node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.PropusFinalD"), name: "Valoare Propusă/Finală" }
+    ];
+
+    // Check each field in the current Table19 instance
+    for (var j = 0; j < tableFieldsD.length; j++) {
+        var tableFieldD = tableFieldsD[j];
+        checkField(tableFieldD.field, tableFieldD.name, "9");
     }
 }
 
+// Validate fields in Table12 dynamically
+var nodesC = xfa.resolveNodes("Page5.Tabel12Subform.Table12[*]");
+for (var i = 0; i < nodesC.length; i++) {
+    var node = nodesC.item(i);
+
+    // Define fields to validate within each Table12 instance
+    var tableFieldsC = [
+        { field: node.resolveNode("Row2.DenumireProgramC3"), name: "Denumire Program" },
+        { field: node.resolveNode("Row2.NumarProiecteC3"), name: "Număr Proiecte" },
+        { field: node.resolveNode("Row2.DenumireBeneficiarC3"), name: "Denumire Beneficiar" },
+        { field: node.resolveNode("Row2.Table15.Row3.DataFinalC3"), name: "Data Finalizării" },
+        { field: node.resolveNode("Row2.ValoareC3"), name: "Valoare" }
+    ];
+
+    // Check each field in the current Table12 instance
+    for (var j = 0; j < tableFieldsC.length; j++) {
+        var tableFieldC = tableFieldsC[j];
+        checkField(tableFieldC.field, tableFieldC.name, "5");
+    }
+}
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
     xfa.host.messageBox("Urmatoarele campuri sunt necompletate:\n" + incompleteFields, "Campuri Incomplete", 3);
@@ -346,3 +322,4 @@ if (incompleteFields !== "") {
     xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
     xfa.resolveNode("SignatureField1").presence = "visible";
 }
+
