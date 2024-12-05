@@ -209,18 +209,18 @@ var mandatoryFieldPaths = [
     "Page8.Table18.Row4.Cerificate6",
     "Page9.ContributiaC11",
     "Page9.DurataC12",
-    "Page9.Table19subform.Table19.Row1.Table2.Row2.NumeD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row2.PrenumeD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row2.CNPD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row4.RegiuneD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row4.JudetD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row4.LocalitateD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row6.StradaD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row6.NrD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row6.CodPostalD",
-    "Page9.Table19subform.Table19.Row1.Table2.Row7.Table3.Row2.SuprafataUtilaD", 
-    "Page9.Table19subform.Table19.Row1.Table2.Row7.Table3.Row3.Table4.Row3.InitialD",   
-    "Page9.Table19subform.Table19.Row1.Table2.Row7.Table3.Row3.Table4.Row3.PropusFinalD"   
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row2.NumeD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row2.PrenumeD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row2.CNPD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row4.RegiuneD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row4.JudetD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row4.LocalitateD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row6.StradaD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row6.NrD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row6.CodPostalD",
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row7.Table3.Row2.SuprafataUtilaD", 
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.InitialD",   
+    "Page9.Table19subform.Table19.Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.PropusFinalD"    
 ];
 
 var checkboxGroups = [
@@ -269,6 +269,74 @@ for (var j = 0; j < checkboxGroups.length; j++) {
 			incompleteFields += checkboxGroups[j].message + "\n";
 	}
 } 
+
+var nodes = xfa.resolveNodes("Page9.Table19subform.Table19[*]"); 
+
+for (var i=0;i<nodes.length;i++) 
+{
+    var node = nodes.item(i);
+    var campCNP = node.resolveNode("Row1.TabelCNP.Row2.CNPD");
+    var campNume = node.resolveNode("Row1.TabelCNP.Row2.NumeD");
+    var campPrenume = node.resolveNode("Row1.TabelCNP.Row2.PrenumeD");
+    var campRegiune = node.resolveNode("Row1.TabelCNP.Row4.RegiuneD");
+    var campJudet = node.resolveNode("Row1.TabelCNP.Row4.JudetD");
+    var campLocalitate = node.resolveNode("Row1.TabelCNP.Row4.LocalitateD");
+    var campStrada = node.resolveNode("Row1.TabelCNP.Row6.StradaD");
+    var campNr = node.resolveNode("Row1.TabelCNP.Row6.NrD"); 
+    var campCodPostal = node.resolveNode("Row1.TabelCNP.Row6.CodPostalD");
+    var campSuprafata = node.resolveNode("Row1.TabelCNP.Row7.Table3.Row2.SuprafataUtilaD");
+    var campInitial = node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.InitialD");
+    var campPropus = node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.PropusFinalD");       
+    //xfa.host.messageBox("" + campCNP.rawValue);
+    if (campPropus.rawValue == "" || campPropus.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Propus/Final gol.");
+    }
+    if (campInitial.rawValue == "" || campInitial.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Initial gol.");
+    }
+    if (campSuprafata.rawValue == "" || campSuprafata.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Suprafata gol.");
+    }
+    if (campCodPostal.rawValue == "" || campCodPostal.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Cod Postal gol.");
+    }
+    if (campNr.rawValue == "" || campNr.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Nr gol.");
+    }
+    if (campStrada.rawValue == "" || campStrada.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Strada gol.");
+    }
+    if (campLocalitate.rawValue == "" || campLocalitate.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Localitate gol.");
+    }
+    if (campJudet.rawValue == "" || campJudet.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Judet gol.");
+    }
+    if (campRegiune.rawValue == "" || campRegiune.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Regiune gol.");
+    }
+    if (campPrenume.rawValue == "" || campPrenume.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Prenume gol.");
+    }
+    if (campNume.rawValue == "" || campNume.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp Nume gol.");
+	}    
+    if (campCNP.rawValue == "" || campCNP.rawValue == null)
+    {
+    	xfa.host.messageBox("Camp CNP gol.");
+    }
+}
 
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
