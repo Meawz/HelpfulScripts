@@ -1,11 +1,17 @@
-form1.Page20.Button5::mouseUp - (JavaScript, client)
-var incompleteFields = ""; // Initialize variable for incomplete fields message
+var incompleteFields = ""; // Initialize variable for incomplete fields message 
 
-function checkField(field, friendlyName, pageNumber) {
-    if (!field || !field.rawValue || field.rawValue === "") {
+function checkFieldC(fieldC, friendlyName, pageNumber) {
+    if (!fieldC || !fieldC.rawValue || fieldC.rawValue === "") {
         incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";
     }
 }
+
+function checkFieldD(fieldD, friendlyName, pageNumber) {
+    if (!fieldD || !fieldD.rawValue || fieldD.rawValue === "") {
+        incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";
+    }
+}
+
 // Mapping of internal field names to user-friendly names
 var friendlyNames = {
     "DenumireB2": "Denumire Solicitant Unic/Lider", 
@@ -266,54 +272,55 @@ for (var j = 0; j < checkboxGroups.length; j++) {
 	}
 } 
 
-// Validate fields in Table19 dynamically
-var nodesD = xfa.resolveNodes("Page9.Table19subform.Table19[*]");
-for (var i = 0; i < nodesD.length; i++) {
-    var node = nodesD.item(i);
-
-    // Define fields to validate within each Table19 instance
-    var tableFieldsD = [
-        { field: node.resolveNode("Row1.TabelCNP.Row2.CNPD"), name: "CNP" },
-        { field: node.resolveNode("Row1.TabelCNP.Row2.NumeD"), name: "Nume" },
-        { field: node.resolveNode("Row1.TabelCNP.Row2.PrenumeD"), name: "Prenume" },
-        { field: node.resolveNode("Row1.TabelCNP.Row4.RegiuneD"), name: "Regiune" },
-        { field: node.resolveNode("Row1.TabelCNP.Row4.JudetD"), name: "Județ" },
-        { field: node.resolveNode("Row1.TabelCNP.Row4.LocalitateD"), name: "Localitate" },
-        { field: node.resolveNode("Row1.TabelCNP.Row6.StradaD"), name: "Strada" },
-        { field: node.resolveNode("Row1.TabelCNP.Row6.NrD"), name: "Număr" },
-        { field: node.resolveNode("Row1.TabelCNP.Row6.CodPostalD"), name: "Cod Poștal" },
-        { field: node.resolveNode("Row1.TabelCNP.Row7.Table3.Row2.SuprafataUtilaD"), name: "Suprafață" },
-        { field: node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.InitialD"), name: "Valoare Inițială" },
-        { field: node.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.PropusFinalD"), name: "Valoare Propusă/Finală" }
-    ];
-
-    // Check each field in the current Table19 instance
-    for (var j = 0; j < tableFieldsD.length; j++) {
-        var tableFieldD = tableFieldsD[j];
-        checkField(tableFieldD.field, tableFieldD.name, "9");
-    }
-}
-
 // Validate fields in Table12 dynamically
 var nodesC = xfa.resolveNodes("Page5.Tabel12Subform.Table12[*]");
 for (var i = 0; i < nodesC.length; i++) {
-    var node = nodesC.item(i);
+    var nodeC = nodesC.item(i);
 
     // Define fields to validate within each Table12 instance
     var tableFieldsC = [
-        { field: node.resolveNode("Row2.DenumireProgramC3"), name: "Denumire Program" },
-        { field: node.resolveNode("Row2.NumarProiecteC3"), name: "Număr Proiecte" },
-        { field: node.resolveNode("Row2.DenumireBeneficiarC3"), name: "Denumire Beneficiar" },
-        { field: node.resolveNode("Row2.Table15.Row3.DataFinalC3"), name: "Data Finalizării" },
-        { field: node.resolveNode("Row2.ValoareC3"), name: "Valoare" }
+        { fieldC: nodeC.resolveNode("Row2.DenumireProgramC3"), name: "Denumire Program" },
+        { fieldC: nodeC.resolveNode("Row2.NumarProiecteC3"), name: "Număr Proiecte" },
+        { fieldC: nodeC.resolveNode("Row2.DenumireBeneficiarC3"), name: "Denumire Beneficiar" },
+        { fieldC: nodeC.resolveNode("Row2.Table15.Row3.DataFinalC3"), name: "Data Finalizării" },
+        { fieldC: nodeC.resolveNode("Row2.ValoareC3"), name: "Valoare Proiect" }
     ];
 
     // Check each field in the current Table12 instance
     for (var j = 0; j < tableFieldsC.length; j++) {
         var tableFieldC = tableFieldsC[j];
-        checkField(tableFieldC.field, tableFieldC.name, "5");
+        checkFieldC(tableFieldC.fieldC, tableFieldC.name, "5");
     }
 }
+
+// Validate fields in Table19 dynamically
+var nodesD = xfa.resolveNodes("Page9.Table19subform.Table19[*]");
+for (var i = 0; i < nodesD.length; i++) {
+    var nodeD = nodesD.item(i);
+
+    // Define fields to validate within each Table19 instance
+    var tableFieldsD = [
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row2.CNPD"), name: "CNP" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row2.NumeD"), name: "Nume" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row2.PrenumeD"), name: "Prenume" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row4.RegiuneD"), name: "Regiune" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row4.JudetD"), name: "Județ" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row4.LocalitateD"), name: "Localitate" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row6.StradaD"), name: "Strada" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row6.NrD"), name: "Număr" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row6.CodPostalD"), name: "Cod Poștal" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row7.Table3.Row2.SuprafataUtilaD"), name: "Suprafață" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.InitialD"), name: "Valoare Inițială" },
+        { fieldD: nodeD.resolveNode("Row1.TabelCNP.Row7.Table3.Row3.Table4.Row3.PropusFinalD"), name: "Valoare Propusă/Finală" }
+    ];
+
+    // Check each field in the current Table19 instance
+    for (var j = 0; j < tableFieldsD.length; j++) {
+        var tableFieldD = tableFieldsD[j];
+        checkFieldD(tableFieldD.fieldD, tableFieldD.name, "9");
+    }
+}
+
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
     xfa.host.messageBox("Urmatoarele campuri sunt necompletate:\n" + incompleteFields, "Campuri Incomplete", 3);
@@ -322,4 +329,3 @@ if (incompleteFields !== "") {
     xfa.host.messageBox("Toate campurile obligatorii sunt completate.", "Validare completa!", 3);
     xfa.resolveNode("SignatureField1").presence = "visible";
 }
-
