@@ -1,17 +1,21 @@
-var incompleteFields = ""; // Initialize variable for incomplete fields message 
+console.show();
+var incompleteFields = ""; // Initialize variable for incomplete fields message
+var reportedErrors = new Set(); // Track already-reported errors 
 
-function checkFieldC(fieldC, friendlyName, pageNumber) {
-    if (!fieldC || !fieldC.rawValue || fieldC.rawValue === "") {
-        incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";
+function addErrorMessage(message) {
+    if (!reportedErrors.has(message)) {
+        incompleteFields += message + "\n";
+        reportedErrors.add(message);
     }
 }
 
-function checkFieldD(fieldD, friendlyName, pageNumber) {
-    if (!fieldD || !fieldD.rawValue || fieldD.rawValue === "") {
-        incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";
+// Check a single field for completeness
+function checkField(field, friendlyName, pageNumber) { 
+    if (!field || !field.rawValue || field.rawValue === "") {
+        var message = "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!";
+        addErrorMessage(message);
     }
 }
-
 // Mapping of internal field names to user-friendly names
 var friendlyNames = {
     "DenumireB2": "Denumire Solicitant Unic/Lider", 
@@ -272,8 +276,8 @@ for (var j = 0; j < checkboxGroups.length; j++) {
 	}
 } 
 
-// Validate fields in Table12 dynamically
-var nodesC = xfa.resolveNodes("Page5.Tabel12Subform.Table12[*]");
+// Validate dynamically for Table12
+var nodesC = xfa.resolveNodes("Page5.Tabel12Subform.Table12.Row2[*]"); 
 for (var i = 0; i < nodesC.length; i++) {
     var nodeC = nodesC.item(i);
 
@@ -288,13 +292,13 @@ for (var i = 0; i < nodesC.length; i++) {
 
     // Check each field in the current Table12 instance
     for (var j = 0; j < tableFieldsC.length; j++) {
-        var tableFieldC = tableFieldsC[j];
-        checkFieldC(tableFieldC.fieldC, tableFieldC.name, "5");
+        var tableField = tableFieldsC[j];
+        checkField(tableField.fieldC, tableField.name, "5");
     }
 }
 
-// Validate fields in Table19 dynamically
-var nodesD = xfa.resolveNodes("Page9.Table19subform.Table19[*]");
+// Validate dynamically for Table19
+var nodesD = xfa.resolveNodes("Page9.Table19subform.Table19[*]"); 
 for (var i = 0; i < nodesD.length; i++) {
     var nodeD = nodesD.item(i);
 
@@ -316,10 +320,10 @@ for (var i = 0; i < nodesD.length; i++) {
 
     // Check each field in the current Table19 instance
     for (var j = 0; j < tableFieldsD.length; j++) {
-        var tableFieldD = tableFieldsD[j];
-        checkFieldD(tableFieldD.fieldD, tableFieldD.name, "9");
+        var tableField = tableFieldsD[j]; 
+        checkField(tableField.fieldD, tableField.name, "9"); 
     }
-}
+}    
 
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
