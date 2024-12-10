@@ -1,5 +1,21 @@
- form1.Page22.Button1::mouseUp - (JavaScript, client)
+//console.show(); 
 var incompleteFields = ""; // Initialize variable for incomplete fields message
+var reportedErrors = new Set(); // Track already-reported errors 
+
+function addErrorMessage(message) {
+    if (!reportedErrors.has(message)) {
+        incompleteFields += message + "\n";
+        reportedErrors.add(message);
+    }
+}
+
+// Check a single field for completeness
+function checkField(field, friendlyName, pageNumber) { 
+    if (!field || !field.rawValue || field.rawValue === "") {
+        var message = "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!";
+        addErrorMessage(message);
+    }
+}
 
 // Mapping of internal field names to user-friendly names
 var friendlyNames = {
@@ -51,10 +67,10 @@ var friendlyNames = {
     "RezultateAsteptateC6": "Rezultate Așteptate",
     "RiscuriIdentificateC7": "Riscuri Identificate",
     "PrincipiOrizontaleC8": "Principii Orizontale",
-    "InstalareR3C5": "Instalare Activitate R3 C5", 
-    "InstalareR3C6": "Instalare Activitate R3 C6", 
-    "InformareR3C6": "Informare Activitate R3 C6",
-    "CertificatR6C6": "Certificat Activitate R6 C6", 
+    "ValINS1C5": "Instalare TVA R1 C5",  
+    "ValINS1C6": "Instalare Neeligibila R1 C6",  
+    "ValINF1C6": "Informare R1 C6", 
+    "ValCER2C6": "Certificat R2 C6",  
     "ContributieC11": "Contribuție",
     "DurataProiectuluiC12": "Durata Proiectului",
     "NumeD": "Nume", 
@@ -129,78 +145,78 @@ var mandatoryFieldPaths = [
     "Page4.RezultateAsteptateC6",
     "Page4.RiscuriIdentificateC7",
     "Page4.PrincipiOrizontaleC8",
-    "Page5.Table16.Row3.Table21.Row1.InstalareR3C5", 
-    "Page5.Table16.Row3.Table22.Row1.InstalareR3C6",
-    "Page6.Table26.Row3.InformareR3C6", 
-    "Page6.Table26.Row6.CertificatR6C6", 
+    "Page5.Table16.Row3.Table21.Row1.ValINS1C5", 
+    "Page5.Table16.Row3.Table22.Row1.ValINS1C6",
+    "Page6.Table26.Row3.ValINF1C6", 
+    "Page6.Table26.Row6.ValCER2C6", 
     "Page6.ContributieC11",
     "Page6.DurataProiectuluiC12",
     "Page7.Table34Subform.Table34.Row2.NumeD",
     "Page7.Table34Subform.Table34.Row2.PrenumeD",
     "Page7.Table34Subform.Table34.Row2.CNPD",
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2.RegiuneD",
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2.JudetD",
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2.LocalitateD",
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2.StradaD", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2.NrD", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2.CodPostalD",
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Observatii1",
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Observatii2", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Observatii3", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row5.Observatii4", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row6.Observatii5", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7.Observatii6", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[1].Observatii7", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[2].Observatii8", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[3].Observatii9", 
-    "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[4].Observatii10"      
+    "Page7.Table34Subform.Table34.Row3.Table35.Row2.RegiuneD",
+    "Page7.Table34Subform.Table34.Row3.Table35.Row2.JudetD",
+    "Page7.Table34Subform.Table34.Row3.Table35.Row2.LocalitateD",
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2.StradaD", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2.NrD", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2.CodPostalD",
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row2.Observatii1", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row3.Observatii2", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row4.Observatii3", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row5.Observatii4", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row6.Observatii5", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7.Observatii6", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[1].Observatii7", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[2].Observatii8", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[3].Observatii9", 
+    "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[4].Observatii10"      
 ]; 
 
 var checkboxGroups = [
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Da1", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row2.Nu1"], 
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row2.Da1", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row2.Nu1"],  
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 1!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Da2", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row3.Nu2"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row3.Da2", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row3.Nu2"],   
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 2!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Da3", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row4.Nu3"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row4.Da3", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row4.Nu3"],   
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 3!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row5.Da4", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row5.Nu4"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row5.Da4", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row5.Nu4"],   
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 4!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row6.Da5", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row6.Nu5"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row6.Da5", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row6.Nu5"],  
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 5!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7.Da6", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7.Nu6"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7.Da6", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7.Nu6"],  
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 6!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[1].Da7", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[1].Nu7"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[1].Da7", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[1].Nu7"],  
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 7!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[2].Da8", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[2].Nu8"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[2].Da8", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[2].Nu8"],  
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 8!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[3].Da9", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[3].Nu9"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[3].Da9", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[3].Nu9"],   
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 9!"
 		},
 		{
-				group: ["Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[4].Da10", "Page7.Table34Subform.Table34.Row2[1].Table35.Row2[1].Table36.Row2[2].Table37.Row7[4].Nu10"],  
+				group: ["Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[4].Da10", "Page7.Table34Subform.Table34.Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[4].Nu10"],   
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 10!"
 		},
 		{
-				group:["Page5.DaC3", "Page5.NuC3"],
+				group:["Page3.DaC3", "Page3.NuC3"],
 				message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la C3. Finanțări nerambursabile obținute sau solicitate!"  
-		},
+		} 
 ]
 
 // Loop through each mandatory field path
@@ -243,6 +259,143 @@ for (var j = 0; j < checkboxGroups.length; j++) {
 	}
 }
 
+// Validate dynamically for Table11
+var nodesC = xfa.resolveNodes("Page3.Tabel11Subform.Table11[*]");   
+for (var i = 0; i < nodesC.length; i++) {
+    var nodeC = nodesC.item(i);
+
+    // Define fields to validate within each Table11 instance
+    var tableFieldsC = [
+        { fieldC: nodeC.resolveNode("Row2.DenumireC3"), name: "Denumire Program" },
+        { fieldC: nodeC.resolveNode("Row2.NProiecteC3"), name: "Număr Proiecte" },
+        { fieldC: nodeC.resolveNode("Row2.DBeneficiarC3"), name: "Denumire Beneficiar" },
+        { fieldC: nodeC.resolveNode("Row2.Table14.Row3.DataFInalizariiC3"), name: "Data Finalizării" },
+        { fieldC: nodeC.resolveNode("Row2.ValNerambursabilaC3"), name: "Valoare Proiect" }  
+    ];
+
+    // Check each field in the current Table11 instance
+    for (var j = 0; j < tableFieldsC.length; j++) {
+        var tableField = tableFieldsC[j];
+        checkField(tableField.fieldC, tableField.name, "3");
+ 	}
+}
+
+// Validate dynamically for Table34
+var nodesD = xfa.resolveNodes("Page7.Table34Subform.Table34[*]"); 
+for (var i = 0; i < nodesD.length; i++) {
+    var nodeD = nodesD.item(i);
+
+    // Define fields to validate within each Table34 instance
+    var tableFieldsD = [
+        { fieldD: nodeD.resolveNode("Row2.CNPD"), name: "CNP" },
+        { fieldD: nodeD.resolveNode("Row2.NumeD"), name: "Nume" },
+        { fieldD: nodeD.resolveNode("Row2.PrenumeD"), name: "Prenume" },
+        { fieldD: nodeD.resolveNode("Row3.Table35.Row2.RegiuneD"), name: "Regiune" }, 
+        { fieldD: nodeD.resolveNode("Row3.Table35.Row2.JudetD"), name: "Județ" }, 
+        { fieldD: nodeD.resolveNode("Row3.Table35.Row2.LocalitateD"), name: "Localitate" },
+        { fieldD: nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2.StradaD"), name: "Strada" },
+        { fieldD: nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2.NrD"), name: "Număr" },
+        { fieldD: nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2.CodPostalD"), name: "Cod Poștal" },  
+    ];
+
+    // Check each field in the current Table34 instance
+    for (var j = 0; j < tableFieldsD.length; j++) {
+        var tableField = tableFieldsD[j]; 
+        checkField(tableField.fieldD, tableField.name, "7"); 
+    }
+
+    // Validate the group of checkboxes in the current Table34 instance
+    var checkboxGroupsD = [
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row2.Da1"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row2.Nu1")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 1!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row3.Da2"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row3.Nu2")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 2!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row4.Da3"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row4.Nu3")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 3!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row5.Da4"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row5.Nu4")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 4!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row6.Da5"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row6.Nu5")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 5!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7.Da6"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7.Nu6")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 6!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[1].Da7"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[1].Nu7")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 7!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[2].Da8"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[2].Nu8")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 8!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[3].Da9"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[3].Nu9")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 9!"
+        },
+        {
+            group: [
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[4].Da10"),
+                nodeD.resolveNode("Row3.Table35.Row3.Table36.Row2[2].Table37.Row7[4].Nu10")
+            ],
+            message: "Trebuie să selectați fie \"Da\", fie \"Nu\" la Observatii 10!"
+        },
+    ];
+
+    // Check each checkbox group in the current Table34 instance
+    for (var k = 0; k < checkboxGroupsD.length; k++) {
+        var group = checkboxGroupsD[k].group;
+        var groupChecked = false;
+
+        for (var m = 0; m < group.length; m++) {
+            var checkbox = group[m];
+            if (checkbox && checkbox.rawValue == "On") {
+                groupChecked = true;
+                break;
+            }
+        }
+
+        if (!groupChecked) {
+            incompleteFields += checkboxGroupsD[k].message + "\n";
+        }
+    }
+}
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
     xfa.host.messageBox("Urmatoarele campuri sunt necompletate:\n" + incompleteFields, "Campuri Incomplete", 3);
