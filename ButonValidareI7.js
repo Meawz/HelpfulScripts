@@ -1,4 +1,4 @@
-console.show();
+//console.show();
 var incompleteFields = ""; // Initialize variable for incomplete fields message
 var reportedErrors = new Set(); // Track already-reported errors 
 
@@ -97,13 +97,13 @@ var friendlyNames = {
     "ValACT3C5": "Activitatea 3 (Coloana 5)",
     "ValACT4C5": "Activitatea 4 (Coloana 5)",
     "ValACT5C5": "Activitatea 5 (Coloana 5)",
-    "ValACT6C4": "Activitatea 6 (Coloana 5)",
+    "ValACT6C5": "Activitatea 6 (Coloana 5)",
     "ValACT1C6": "Activitatea 1 (Coloana 6)",
     "ValACT2C6": "Activitatea 2 (Coloana 6)",
     "ValACT3C6": "Activitatea 3 (Coloana 6)",
     "ValACT4C6": "Activitatea 4 (Coloana 6)",
     "ValACT5C6": "Activitatea 5 (Coloana 6)",
-    "ValACT6C5": "Activitatea 6 (Coloana 6)",
+    "ValACT6C6": "Activitatea 6 (Coloana 6)",
     "ValINFOC6": "Informare și Publicitate (Coloana 6)",
     "ValCERC6": "Certificate de Racordare (Coloana 6)",
     "ContributiaC11": "Contribuție",
@@ -204,13 +204,13 @@ var mandatoryFieldPaths = [
     "Page7.Table17.Row5.ValACT3C5",
     "Page7.Table17.Row6.ValACT4C5",
     "Page7.Table17.Row7.ValACT5C5",
-    "Page7.Table17.Row8.ValACT6C4",
+    "Page7.Table17.Row8.ValACT6C5",
     "Page7.Table17.Row3.ValACT1C6",
     "Page7.Table17.Row4.ValACT2C6",
     "Page7.Table17.Row5.ValACT3C6",
     "Page7.Table17.Row6.ValACT4C6",
     "Page7.Table17.Row7.ValACT5C6",
-    "Page7.Table17.Row8.ValACT6C5",
+    "Page7.Table17.Row8.ValACT6C6",
     "Page8.Table18.Row3.ValINFOC6",
     "Page8.Table18.Row4.ValCERC6",
     "Page9.ContributiaC11",
@@ -237,26 +237,26 @@ var checkboxGroups = [
 ]
 
 // Loop through each mandatory field path
+var allFieldsCompleted = true; // Track if all mandatory fields are completed
+
 for (var i = 0; i < mandatoryFieldPaths.length; i++) {
     var fieldPath = mandatoryFieldPaths[i];
     var field = xfa.resolveNode(fieldPath);
     
-    // Check if the field is found
     if (field != null) {
-        // Check if the field is mandatory and empty
         if (field.mandatory === "error" && (!field.rawValue || field.rawValue === "")) {
-            // Extract the page number from the field path
+            allFieldsCompleted = false; // Mark as incomplete
             var pageMatch = fieldPath.match(/Page(\d+)/);
             var pageNumber = pageMatch ? pageMatch[1] : "unknown";
-            
-            // Use friendly name if available, otherwise fall back to the internal name
             var friendlyName = friendlyNames[field.name] || field.name;
             incompleteFields += "Campul \"" + friendlyName + "\" pe Pagina \"" + pageNumber + "\" este obligatoriu!\n";  
         }
     } else {
         incompleteFields += "Campul la calea \"" + fieldPath + "\" nu există.\n";
+        allFieldsCompleted = false; // Mark as incomplete
     }
 }
+
 
 for (var j = 0; j < checkboxGroups.length; j++) {
 		var group = checkboxGroups[j].group;
@@ -324,6 +324,18 @@ for (var i = 0; i < nodesD.length; i++) {
         checkField(tableField.fieldD, tableField.name, "9"); 
     }
 }    
+
+// Set all completed mandatory fields to readOnly if all are completed
+if (allFieldsCompleted) {
+    for (var i = 0; i < mandatoryFieldPaths.length; i++) {
+        var fieldPath = mandatoryFieldPaths[i];
+        var field = xfa.resolveNode(fieldPath);
+        
+        if (field != null && field.mandatory === "error" && field.rawValue) {
+            field.access = "readOnly"; // Make field read-only
+        }
+    }
+}
 
 // Display a message if there are incomplete fields
 if (incompleteFields !== "") {
