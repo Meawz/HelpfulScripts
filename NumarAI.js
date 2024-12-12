@@ -20,10 +20,15 @@ if (numValue) {
     else if (isCIUnicChecked) {
         if (numValue.length === 6 && /^[0-9]+$/.test(numValue)) {
             // Valid old CI format (6 numeric characters)
-            // No action needed; field is valid
+            // Restore the previous value of SeriaUnic if it was completed earlier
+            if (!SeriaUnic.rawValue || SeriaUnic.rawValue === "-") {
+                SeriaUnic.rawValue = null; // Set to null if SeriaUnic was empty
+            }
+            SeriaUnic.access = "open"; // Allow editing 
         } else if (numValue.length === 9 && /^[a-zA-Z0-9]+$/.test(numValue)) {
             // Valid new CI format (9 alphanumeric characters)
-            // No action needed; field is valid
+            SeriaUnic.rawValue = "-"; // Set SeriaUnic to "-"
+            SeriaUnic.access = "protected"; // Protect the field
         } else {
             // Invalid CI format
             xfa.host.messageBox("Numărul de identificare este invalid. Vă rugăm să introduceți formatul corect:\n- 6 cifre pentru vechiul card\n- 9 caractere alfanumerice pentru noul card.", "Eroare", 3);
