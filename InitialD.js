@@ -5,8 +5,13 @@ var PropusDvalue = parseFloat(PropusFinalD.rawValue);
 
 // Check if the value is a number
 if (!isNaN(value)) {
+	// Check if the value is zero
+    if (value === 0) {
+        xfa.host.messageBox("Valoarea introdusă nu poate fi 0. Vă rugăm să introduceți o valoare diferită de zero.", "Input Error", 3);
+        this.rawValue = null; // Clear the field if the value is 0
+    }
     // Check if the value is not an integer (i.e., has decimal points)
-    if (value % 1 !== 0) {
+    else if (value % 1 !== 0) {
         xfa.host.messageBox("Valoarea introdusă nu poate să conțină zecimale. Vă rugăm să introduceți un număr întreg.", "Input Error", 3);
         this.rawValue = null; // Clear the field if the value contains decimals
     }
@@ -25,3 +30,4 @@ if (!isNaN(value)) {
     xfa.host.messageBox("Vă rugăm să introduceți un număr valid.", "Input Error", 3);
     this.rawValue = null; // Clear the field if the value is invalid
 }
+
