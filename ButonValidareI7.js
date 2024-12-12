@@ -125,6 +125,8 @@ var friendlyNames = {
 
 // Manually define the paths to all mandatory fields
 var mandatoryFieldPaths = [
+	"Page1.Unic",
+	"Page1.Parteneriat",
     "Page1.DenumireB2",
     "Page1.CUIB2",
     "Page1.Table31.Row3.ProfitNetL",
@@ -325,14 +327,26 @@ for (var i = 0; i < nodesD.length; i++) {
     }
 }    
 
-// Set all completed mandatory fields to readOnly if all are completed
 if (allFieldsCompleted) {
     for (var i = 0; i < mandatoryFieldPaths.length; i++) {
         var fieldPath = mandatoryFieldPaths[i];
         var field = xfa.resolveNode(fieldPath);
-        
-        if (field != null && field.mandatory === "error" && field.rawValue) {
-            field.access = "readOnly"; // Make field read-only
+
+        if (field) {
+            field.access = "protected"; // Make field read-only
+        }
+    }
+
+    // Make checkbox groups read-only
+    for (var j = 0; j < checkboxGroups.length; j++) {
+        var group = checkboxGroups[j].group;
+
+        for (var k = 0; k < group.length; k++) {
+            var checkbox = xfa.resolveNode(group[k]);
+
+            if (checkbox) {
+                checkbox.access = "protected"; // Make checkbox read-only
+            }
         }
     }
 }
